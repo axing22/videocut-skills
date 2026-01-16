@@ -10,7 +10,7 @@ description: 字幕生成与烧录。转录→词典纠错→审核→烧录。�
 ## 流程
 
 ```
-1. 转录视频
+1. 转录视频（Whisper）
     ↓
 2. 词典纠错 + 分句
     ↓
@@ -22,8 +22,23 @@ description: 字幕生成与烧录。转录→词典纠错→审核→烧录。�
     ↓
 5. 我匹配时间戳 → 生成 SRT
     ↓
-6. 烧录字幕
+6. 烧录字幕（FFmpeg）
 ```
+
+## 转录
+
+使用 OpenAI Whisper 模型进行语音转文字：
+
+```bash
+whisper video.mp4 --model medium --language zh --output_format json
+```
+
+| 模型 | 用途 |
+|------|------|
+| `medium` | 默认，平衡速度与准确率 |
+| `large-v3` | 高精度，较慢 |
+
+输出 JSON 包含逐词时间戳，用于后续 SRT 生成。
 
 ---
 
